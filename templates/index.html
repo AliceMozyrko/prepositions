@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Аналіз тексту</title>
+  </head>
+  <body>
+    <h1>Аналіз тексту</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <label for="text">Введіть текст:</label><br />
+      <textarea id="text" name="text" rows="5" cols="50"></textarea><br /><br />
+      <label for="file">Або завантажте текстовий файл:</label><br />
+      <input type="file" id="file" name="file" /><br /><br />
+      <button type="submit">Аналізувати</button>
+    </form>
+
+    {% if error_message %}
+    <p style="color: red">{{ error_message }}</p>
+    {% endif %} {% if features %}
+    <h2>Аналізований текст:</h2>
+    <p style="white-space: pre-wrap; max-width: 500px">{{ input_text|safe }}</p>
+
+    <h2>Знайдені прийменники:</h2>
+    <ul>
+      {% for feature in features %}
+      <li>{{ feature }}</li>
+      {% endfor %}
+    </ul>
+    <!-- Кнопка для генерації звіту -->
+    <form action="/generate-report" method="POST">
+      <input type="hidden" name="original_text" value="{{ original_text }}" />
+      <input type="hidden" name="lang" value="{{ lang }}" />
+      {% for feature in features %}
+      <input type="hidden" name="features" value="{{ feature }}" />
+      {% endfor %}
+      <button type="submit">Сформувати звіт</button>
+    </form>
+    {% elif lang %}
+    <p>Не знайдено прийменників.</p>
+    {% endif %}
+  </body>
+</html>
