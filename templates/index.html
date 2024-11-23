@@ -3,41 +3,92 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Аналіз тексту</title>
+    <title>Пошук прийменників у тексті</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
-    <h1>Аналіз тексту</h1>
-    <form method="POST" enctype="multipart/form-data">
-      <label for="text">Введіть текст:</label><br />
-      <textarea id="text" name="text" rows="5" cols="50"></textarea><br /><br />
-      <label for="file">Або завантажте текстовий файл:</label><br />
-      <input type="file" id="file" name="file" /><br /><br />
-      <button type="submit">Аналізувати</button>
-    </form>
+    <div class="container mt-5">
+      <h1 class="text-center text-autumn mb-4">
+        🍂 Пошук прийменників у тексті
+      </h1>
+      <div class="card shadow p-4 bg-autumn">
+        <form method="POST" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="text" class="form-label text-dark fw-bold"
+              >Введіть текст (укр/англ), в якому містяться прийменники:</label
+            >
+            <textarea
+              class="form-control border-autumn txtarea"
+              id="text"
+              name="text"
+              rows="4"
+              placeholder="Садок вишневий коло хати..."
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="file" class="form-label text-dark fw-bold"
+              >Або завантажте текстовий файл:</label
+            >
+            <input
+              type="file"
+              id="file"
+              name="file"
+              class="form-control border-autumn"
+            />
+          </div>
+          <button type="submit" class="btn btn-autumn w-100">
+            Аналізувати
+          </button>
+        </form>
+      </div>
+      <section class="mt-4">
+        {% if error_message %}
+        <div class="alert alert-danger text-center">{{ error_message }}</div>
+        {% endif %} {% if features %}
+        <div class="card shadow mt-4 p-4 bg-light border-autumn">
+          <h2 class="text-center text-autumn-dark">Аналізований текст:</h2>
+          <p
+            class="bg-light p-3 rounded text-preposition"
+            style="white-space: pre-wrap"
+          >
+            {{ input_text|safe }}
+          </p>
+        </div>
+        <div class="card shadow mt-4 p-4 bg-light border-autumn">
+          <h2 class="text-center text-autumn-dark">Знайдені прийменники:</h2>
+          <ul class="list-group">
+            {% for feature in features %}
+            <li class="list-group-item text-autumn fw-bold">{{ feature }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <form action="/generate-report" method="POST" class="mt-4">
+          <input
+            type="hidden"
+            name="original_text"
+            value="{{ original_text }}"
+          />
+          <input type="hidden" name="lang" value="{{ lang }}" />
+          {% for feature in features %}
+          <input type="hidden" name="features" value="{{ feature }}" />
+          {% endfor %}
+          <button type="submit" class="btn btn-autumn w-100 btn-last">
+            Сформувати звіт
+          </button>
+        </form>
+        {% elif lang %}
+        <div class="alert alert-warning text-center mt-4">
+          Не знайдено прийменників.
+        </div>
+        {% endif %}
+      </section>
+    </div>
 
-    {% if error_message %}
-    <p style="color: red">{{ error_message }}</p>
-    {% endif %} {% if features %}
-    <h2>Аналізований текст:</h2>
-    <p style="white-space: pre-wrap; max-width: 500px">{{ input_text|safe }}</p>
-
-    <h2>Знайдені прийменники:</h2>
-    <ul>
-      {% for feature in features %}
-      <li>{{ feature }}</li>
-      {% endfor %}
-    </ul>
-    <!-- Кнопка для генерації звіту -->
-    <form action="/generate-report" method="POST">
-      <input type="hidden" name="original_text" value="{{ original_text }}" />
-      <input type="hidden" name="lang" value="{{ lang }}" />
-      {% for feature in features %}
-      <input type="hidden" name="features" value="{{ feature }}" />
-      {% endfor %}
-      <button type="submit">Сформувати звіт</button>
-    </form>
-    {% elif lang %}
-    <p>Не знайдено прийменників.</p>
-    {% endif %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

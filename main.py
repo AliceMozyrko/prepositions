@@ -34,7 +34,7 @@ def extract_features(text, lang):
     return features, highlighted_text.strip()
 
 
-@app.route("/", methods=["POST"])
+@app.route("/", methods=["GET", "POST"])
 def index():
     features = []
     highlighted_text = ""

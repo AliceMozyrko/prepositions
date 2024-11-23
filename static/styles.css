@@ -1,0 +1,66 @@
+body {
+  background: #f7efe2;
+  font-family: 'Roboto', sans-serif;
+}
+
+.btn-last {
+  margin-bottom: 20px;
+}
+
+.txtarea{
+  resize: none;
+}
+
+.txtarea::placeholder {
+  color: #d4a373;
+  font-style: italic;
+}
+.text-autumn {
+  color: #b55211;
+  font-weight: bold;
+}
+
+.text-autumn-dark {
+  color: #7c2e1c;
+  font-weight: bold;
+}
+
+.bg-autumn {
+  background: #ffe4c4;
+  border: 2px solid #d4a373;
+  border-radius: 12px;
+}
+
+.btn-autumn {
+  display: block;
+  background: #d2691e;
+  color: #fff;
+  border: none;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.btn-autumn:hover {
+  background: #cd853f;
+  transition: 0.3s;
+}
+
+
+.border-autumn {
+  border: 2px solid #d4a373;
+}
+
+
+.text-preposition {
+  color: #7c2e1c;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+.btn-last {
+  margin-bottom: 50px;
+}
