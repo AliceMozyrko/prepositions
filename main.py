@@ -9,9 +9,9 @@ nlp_en = spacy.load("en_core_web_sm")
 
 
 def detect_language(text):
-    if re.search(r'[а-яА-ЯіїєґІЇЄҐ]', text):  # Кирилиця
+    if re.search(r'[а-яА-ЯіїєґІЇЄҐ]', text):  
         return 'uk'
-    elif re.search(r'[a-zA-Z]', text):  # Латиниця
+    elif re.search(r'[a-zA-Z]', text):  
         return 'en'
     return None
 
@@ -76,10 +76,8 @@ def generate_report():
     features = request.form.getlist("features")
     lang = request.form["lang"]
 
-    # Вибір типу характеристик для звіту
     feature_label = "Прийменники" 
 
-    # Генерація звіту
     word_count = len(text.split())
     text_length = len(text)
     report_content = (
@@ -96,7 +94,6 @@ def generate_report():
         report_file.write(report_content)
 
     return send_file(report_path, as_attachment=True)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
