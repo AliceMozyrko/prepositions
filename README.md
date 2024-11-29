@@ -16,3 +16,7 @@ On a bright morning, the children walked through the park, beside the lake, and 
 Тестовий текст англійською
 On a bright morning, the children walked through the park, beside the lake, and under the old oak tree. They talked about their plans for the weekend and played near the swings. After some time, they sat on a bench and looked across the water, enjoying the peaceful view.
 ```
+```
+Посилання на презентацію опису програми:
+https://gamma.app/docs/-u0nadx3mj76g4xi?mode=doc
+```
